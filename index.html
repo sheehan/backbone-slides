@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="js/deck/extensions/status/deck.status.css">
     <link rel="stylesheet" href="js/deck/extensions/hash/deck.hash.css">
 
-    <link rel="stylesheet" id="style-theme-link" href="js/deck/themes/style/swiss.css">
+    <link rel="stylesheet" id="style-theme-link" href="js/deck/themes/style/web-2.0.css">
     <link rel="stylesheet" id="transition-theme-link" href="js/deck/themes/transition/fade.css">
 
     <!-- ********************* -->
@@ -49,41 +49,72 @@
 <body class="">
 
 <article class="deck-container">
-    <section class="slide" id="title-slide">
+    <section class="slide">
         <div class="">
             <hgroup>
                 <h1>Backbone.js</h1>
                 <!--<h2>The dynamic stylesheet language.</h2>-->
             </hgroup>
         </div>
-        <span class="author">Matt Sheehan</span>
     </section>
     <section class="slide">
-        <h2>How to Make a Deck</h2>
+        <h2>What is it?</h2>
+        <blockquote>
+            Backbone.js gives structure to web applications by providing models with key-value binding and custom
+            events, collections with a rich API of enumerable functions, views with declarative event handling, and
+            connects it all to your existing API over a RESTful JSON interface.
+        </blockquote>
+    </section>
+    <section class="slide">
+        <h2>Components</h2>
         <ol>
             <li>
-                <h3>Write Slides</h3>
+                <h3>Models</h3>
 
-                <p>Slide content is simple HTML.</p>
+                <p>Contains the interactive data as well as a large part of the logic surrounding it: conversions,
+                    validations, computed properties, and access control.</p>
             </li>
             <li>
-                <h3>Choose Themes</h3>
+                <h3>Collections</h3>
 
-                <p>One for slide styles and one for deck transitions.</p>
+                <p>Ordered sets of models.</p>
             </li>
-            …
+            <li>
+                <h3>Views</h3>
+
+                <p>Responsible for drawing the model on the page.</p>
+            </li>
+            <li>
+                <h3>Routers</h3>
+
+                <p>Provides methods for routing client-side pages, and connecting them to actions and events.</p>
+            </li>
         </ol>
     </section>
     <section class="slide">
-        <div>
-          <pre class="code" mode="javascript" style="display: none;" runnable="true">
+        <h2>Events Mixin</h2>
+
+        <p>Models, Collections, Views, and Routers all have the Events module mixed in.</p>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$, _, Backbone">
+var object = {};
+
+_.extend(object, Backbone.Events);
+
+object.on("alert", function(msg) {
+  console.log("Triggered " + msg);
+});
+
+object.trigger("alert", "an event");
+        </pre>
+    </section>
+    <section class="slide">
+      <pre class="code" mode="javascript" style="display: none;" runnable="true">
 // codemirror demo party!
 var greeter = function(name) {
   return "Why hello there " + name;
 }
 console.log(greeter("Joe"));
-          </pre>
-        </div>
+      </pre>
     </section>
 
     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
@@ -105,6 +136,9 @@ console.log(greeter("Joe"));
 
 <script src="js/CodeMirror-2.21/lib/codemirror.js"></script>
 <script src="js/CodeMirror-2.21/mode/css/css.js"></script>
+
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
 
 <script src="js/main.js"></script>
 </body>
