@@ -429,6 +429,46 @@ console.log('html: ' + _.escape(view.$el.html()));
         </div>
     </section>
 
+    <section class="slide">
+        <h2>Views</h2>
+        <h3>Handling DOM events</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend();
+
+var TaskView = Backbone.View.extend({
+    template: _.template('<span>Name: <a href="#" class="name"><%= name %></a></span><span>Description: <%= description %></span>'),
+
+    events: {
+        'click .name': '_handleClick' // 'event selector' : 'method'
+    },
+
+    initialize: function(options) {
+        this.model.bind('change', this.render, this);
+    },
+
+    _handleClick: function(event) {
+        event.preventDefault();
+        console.log('name clicked');
+    },
+
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el.html(html);
+    }
+});
+
+var model = new TaskModel({name: 'foo', description: 'bar'});
+
+var view = new TaskView({model: model});
+view.render();
+console.log('html: ' + _.escape(view.$el.html()));
+
+view.$el.find('.name').click(); // simulate click
+        </textarea>
+        </div>
+    </section>
+
     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
     <a href="#" class="deck-next-link" title="Next">&#8594;</a>
 </article>
