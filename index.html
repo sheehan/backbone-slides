@@ -119,7 +119,10 @@ object.trigger("alert", "an event");
     </section>
 
     <section class="slide">
+        <div>
         <h2>Layers</h2>
+            <img src="images/backbone-layer.png" />
+        </div>
     </section>
 
     <section class="slide">
@@ -454,7 +457,7 @@ view.$el.find('.name').click(); // simulate click
         <h2>Routers</h2>
         <h3>Creating a router instance</h3>
         <div>
-        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" globals="jQuery,$,_,Backbone">
 var MyRouter = Backbone.Router.extend({
     routes: {
         'help':                 'help',    // #help
