@@ -80,4 +80,9 @@ section.slide > div {
     /*visibility: visible;*/
 }
 
+
+.deck-container:hover .deck-prev-link.deck-nav-disabled, .touch .deck-container:hover .deck-prev-link, .deck-container:hover .deck-next-link.deck-nav-disabled, .touch .deck-container:hover .deck-next-link {
+  display: block;
+}
+
 /*url("http://backboneconf.com/img/backbone.png") no-repeat scroll center center transparent*/
