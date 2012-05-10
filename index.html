@@ -102,8 +102,9 @@
     <section class="slide">
         <div>
         <h2>Events Mixin</h2>
-
+        <div class="slide vertical-code">
         <h3>Models, Collections, Views, and Routers all have the Events module mixed in.</h3>
+        <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var object = {};
 
@@ -115,6 +116,8 @@ object.on("alert", function(msg) {
 
 object.trigger("alert", "an event");
         </textarea>
+        </div>
+        </div>
         </div>
     </section>
 
@@ -128,6 +131,7 @@ object.trigger("alert", "an event");
     <section class="slide">
         <div>
         <h2>Models</h2>
+        <div class="slide vertical-code">
         <h3>Creating a Model instance</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
@@ -144,6 +148,8 @@ task.set('name', 'Do Laundry');
 console.log(task.get('name'));
         </textarea>
         </div>
+        </div>
+        <div class="slide vertical-code">
         <h3>Validation</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -169,6 +175,8 @@ one.set({
 });
         </textarea>
         </div>
+        </div>
+        <div class="slide vertical-code">
         <h3>Instance and Static methods</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
@@ -188,6 +196,8 @@ task.instanceMethod();
 TaskModel.staticMethod();
         </textarea>
         </div>
+        </div>
+        <div class="slide vertical-code">
         <h3>Binding events</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
@@ -206,6 +216,8 @@ task.set('name', 'Wash the car');
 task.set('description', 'something else');
         </textarea>
         </div>
+        </div>
+        <div class="slide vertical-code">
         <h3>JSON</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
@@ -220,6 +232,8 @@ var task = new TaskModel({
 console.log(task.toJSON());
         </textarea>
         </div>
+        </div>
+        <div class="slide vertical-code">
         <h3>REST</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -248,12 +262,14 @@ task.destroy();
         </textarea>
         </div>
         </div>
+        </div>
 
     </section>
 
     <section class="slide">
         <div>
         <h2>Collections</h2>
+        <div class="slide vertical-code">
         <h3>Create a Collection instance</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -275,7 +291,8 @@ tasks.each(function(model) {
 });
         </textarea>
         </div>
-
+        </div>
+        <div class="slide vertical-code">
         <h3>Add/remove events</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -302,7 +319,8 @@ tasks.remove(task1);
 task2.destroy();
         </textarea>
         </div>
-
+        </div>
+        <div class="slide vertical-code">
         <h3>Fetch</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -324,7 +342,8 @@ tasks.fetch();
 console.log('found ' + tasks.length + ' tasks');
         </textarea>
         </div>
-
+        </div>
+        <div class="slide vertical-code">
         <h3>Fetch with parameters</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -355,11 +374,13 @@ tasks.fetchByUser('johnson');
         </textarea>
         </div>
         </div>
+        </div>
     </section>
 
     <section class="slide">
         <div>
         <h2>Views</h2>
+        <div class="slide vertical-code">
         <h3>Create a View instance</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -383,7 +404,8 @@ view.render();
 console.log('html: ' + _.escape(view.$el.html()));
         </textarea>
         </div>
-
+        </div>
+        <div class="slide vertical-code">
         <h3>Repainting on change event</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -412,7 +434,8 @@ model.set('name', 'Set up oil change');
 console.log('html: ' + _.escape(view.$el.html()));
         </textarea>
         </div>
-
+        </div>
+        <div class="slide vertical-code">
         <h3>Handling DOM events</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -450,11 +473,13 @@ view.$el.find('.name').click(); // simulate click
         </textarea>
         </div>
         </div>
+        </div>
     </section>
 
     <section class="slide">
         <div>
         <h2>Routers</h2>
+        <div class="slide vertical-code">
         <h3>Creating a router instance</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" globals="jQuery,$,_,Backbone">
@@ -478,6 +503,34 @@ var router = new MyRouter();
 router.navigate("help/troubleshooting", {trigger: true});
         </textarea>
         </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+            <h2>Plugins</h2>
+            <ul>
+                <li class="slide">
+                    <h3>Backbone Memento</h3>
+                    <p>Create undo points to store / restore your model's state.</p>
+                    <a href="https://github.com/derickbailey/backbone.memento">https://github.com/derickbailey/backbone.memento</a>
+                </li>
+                <li class="slide">
+                    <h3>Backbone-relational</h3>
+                    <p>Backbone-relational provides one-to-one, one-to-many and many-to-one relations between models for Backbone.</p>
+                    <a href="https://github.com/PaulUithol/Backbone-relational">https://github.com/PaulUithol/Backbone-relational</a>
+                </li>
+                <li class="slide">
+                    <h3>Backbone.Marionette</h3>
+                    <p>Backbone.Marionette is a composite application library for Backbone.js that aims to simplify the construction of large scale JavaScript applications.</p>
+                    <a href="https://github.com/derickbailey/backbone.marionette">https://github.com/derickbailey/backbone.marionette</a>
+                </li>
+                <li class="slide">
+                    <h3>Others</h3>
+                    <a href="https://github.com/documentcloud/backbone/wiki/Extensions%2C-Plugins%2C-Resources">https://github.com/documentcloud/backbone/wiki/Extensions%2C-Plugins%2C-Resources</a>
+                </li>
+            </ul>
         </div>
     </section>
 
