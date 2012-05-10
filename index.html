@@ -102,8 +102,9 @@
     <section class="slide">
         <div>
         <h2>Events Mixin</h2>
+        <p>Models, Collections, Views, and Routers all have the Events module mixed in.</p>
         <div class="slide vertical-code">
-        <h3>Models, Collections, Views, and Routers all have the Events module mixed in.</h3>
+        <h3>Empty object extended with Backbone.Events</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var object = {};
@@ -124,6 +125,7 @@ object.trigger("alert", "an event");
     <section class="slide">
         <div>
         <h2>Layers</h2>
+            <p>Objects are composed of other objects in the same or lower layers. Objects listen for events triggered from other objects in the same or lower layers.</p>
             <img src="images/backbone-layer.png" />
         </div>
     </section>
@@ -142,6 +144,8 @@ var TaskModel = Backbone.Model.extend({
 });
 
 var task = new TaskModel();
+
+// access attributes with get/set
 console.log(task.get('name'));
 
 task.set('name', 'Do Laundry');
@@ -165,6 +169,7 @@ var one = new Chapter({
   title : "Chapter One: The Beginning"
 });
 
+// validation failure triggers error event
 one.on("error", function(model, error) {
   console.log(error);
 });
@@ -283,7 +288,7 @@ var tasks = new TaskCollection([
     { name: 'task2', description: 'second task' }
 ]);
 
-console.log(tasks.length);
+console.log('collection has ' + tasks.length + ' tasks');
 
 // underscore iteration functions proxied
 tasks.each(function(model) {
@@ -310,8 +315,11 @@ tasks.on('remove', function(model, collection) {
     console.log('removed ' + model.get('name'));
 });
 
-// pass silent option to suppress event
-tasks.add([{name: 'task1'}, {name: 'task2'}]);
+// you can pass {silent: true} option to suppress event
+tasks.add([
+    {name: 'task1'},
+    {name: 'task2'}
+]);
 
 var task1 = tasks.at(0);
 var task2 = tasks.at(1);
@@ -325,8 +333,10 @@ task2.destroy();
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
+
 var TaskCollection = Backbone.Collection.extend({
     model: TaskModel,
+            
     url: '/tasks'
 });
 
@@ -334,8 +344,12 @@ var tasks = new TaskCollection();
 
 // mock sync
 Backbone.sync = function(method, model) {
-  console.log('method: ' + method);
-  model.reset([{name: 'fetch1'},{name: 'fetch2'},{name: 'fetch3'}]);
+    console.log('method: ' + method);
+    model.reset([
+        {name: 'fetch1'},
+        {name: 'fetch2'},
+        {name: 'fetch3'}
+    ]);
 };
 
 tasks.fetch();
@@ -380,6 +394,7 @@ tasks.fetchByUser('johnson');
     <section class="slide">
         <div>
         <h2>Views</h2>
+        <p>Views automatically create a container element. The render method will update the contents of the container in response to model events.</p>
         <div class="slide vertical-code">
         <h3>Create a View instance</h3>
         <div>
@@ -387,15 +402,25 @@ tasks.fetchByUser('johnson');
 var TaskModel = Backbone.Model.extend();
 
 var TaskView = Backbone.View.extend({
-    template: _.template('<span>Name: <%= name %></span><span>Description: <%= description %></span>'),
+
+    // underscore.js template function
+    template: _.template(
+        '<span>Name: <%= name %></span>' +
+        '<span>Description: <%= description %></span>'
+    ),
 
     render: function() {
         var html = this.template(this.model.toJSON());
+
+        // this.$el points to the container element
         this.$el.html(html);
     }
 });
 
-var model = new TaskModel({name: 'Change oil', description: 'blah blah'});
+var model = new TaskModel({
+    name: 'Change oil',
+    description: 'blah blah'
+});
 
 var view = new TaskView({model: model});
 console.log('html: ' + _.escape(view.$el.html()));
@@ -412,11 +437,15 @@ console.log('html: ' + _.escape(view.$el.html()));
 var TaskModel = Backbone.Model.extend();
 
 var TaskView = Backbone.View.extend({
-    template: _.template('<span>Name: <%= name %></span><span>Description: <%= description %></span>'),
 
     initialize: function(options) {
         this.model.bind('change', this.render, this);
     },
+
+    template: _.template(
+        '<span>Name: <%= name %></span>' +
+        '<span>Description: <%= description %></span>'
+    ),
 
     render: function() {
         var html = this.template(this.model.toJSON());
@@ -424,7 +453,10 @@ var TaskView = Backbone.View.extend({
     }
 });
 
-var model = new TaskModel({name: 'Change oil', description: 'blah blah'});
+var model = new TaskModel({
+    name: 'Change oil',
+    description: 'blah blah'
+});
 
 var view = new TaskView({model: model});
 view.render();
@@ -442,20 +474,29 @@ console.log('html: ' + _.escape(view.$el.html()));
 var TaskModel = Backbone.Model.extend();
 
 var TaskView = Backbone.View.extend({
-    template: _.template('<span>Name: <a href="#" class="name"><%= name %></a></span><span>Description: <%= description %></span>'),
-
-    events: {
-        'click .name': '_handleClick' // 'event selector' : 'method'
-    },
 
     initialize: function(options) {
         this.model.bind('change', this.render, this);
     },
 
-    _handleClick: function(event) {
-        event.preventDefault();
-        console.log('name clicked');
+    events: {
+        // 'event selector' : 'method'
+        'click .name': 'handleNameClick',
+        'mouseenter .description': 'handleDescriptionMouseEnter'
     },
+
+    handleNameClick: function(event) {
+        console.log('handle name click');
+    },
+
+    handleDescriptionMouseEnter: function(event) {
+        console.log('handle description mouseenter');
+    },
+
+    template: _.template(
+        '<span class="name">Name: <%= name %></span>' +
+        '<span class="description">Description: <%= description %></span>'
+    ),
 
     render: function() {
         var html = this.template(this.model.toJSON());
@@ -463,13 +504,18 @@ var TaskView = Backbone.View.extend({
     }
 });
 
-var model = new TaskModel({name: 'foo', description: 'bar'});
+var model = new TaskModel({
+    name: 'foo',
+    description: 'bar'
+});
 
 var view = new TaskView({model: model});
 view.render();
 console.log('html: ' + _.escape(view.$el.html()));
 
-view.$el.find('.name').click(); // simulate click
+// simulate events
+view.$el.find('.name').click();
+view.$el.find('.description').mouseenter();
         </textarea>
         </div>
         </div>
