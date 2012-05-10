@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html>
 
@@ -72,3 +73,511 @@ $ git checkout gh-pages
 
   </body>
 </html>
+=======
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Backbone.js</title>
+
+    <meta name="description" content="Backbone.js Presentation">
+
+    <meta name="author" content="Matt Sheehan">
+    <meta name="viewport" content="width=1024, user-scalable=no">
+
+    <!-- Core and extension CSS files -->
+    <link rel="stylesheet" href="js/deck/core/deck.core.css">
+    <link rel="stylesheet" href="js/deck/extensions/goto/deck.goto.css">
+    <link rel="stylesheet" href="js/deck/extensions/menu/deck.menu.css">
+    <link rel="stylesheet" href="js/deck/extensions/navigation/deck.navigation.css">
+    <link rel="stylesheet" href="js/deck/extensions/status/deck.status.css">
+    <link rel="stylesheet" href="js/deck/extensions/hash/deck.hash.css">
+
+    <link rel="stylesheet" id="style-theme-link" href="js/deck/themes/style/web-2.0.css">
+    <link rel="stylesheet" id="transition-theme-link" href="js/deck/themes/transition/fade.css">
+
+    <!-- ********************* -->
+    <!-- code mirror extension -->
+    <link rel="stylesheet" href="js/deck/extensions/codemirror/deck.codemirror.css">
+
+    <!-- Base codemiror code -->
+    <script src="js/deck/extensions/codemirror/codemirror.js"></script>
+
+    <!-- Syntax highlighting Modes -->
+
+    <!-- javascript -->
+    <script src="js/deck/extensions/codemirror/mode/javascript/javascript.js"></script>
+
+    <!-- html mode (note html mode requires xml, css and javascript) -->
+    <script src="js/deck/extensions/codemirror/mode/xml/xml.js"></script>
+    <script src="js/deck/extensions/codemirror/mode/css/css.js"></script>
+    <script src="js/deck/extensions/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+
+    <link rel="stylesheet" href="js/deck/extensions/codemirror/themes/default.css">
+
+    <link rel="stylesheet" href="css/main.css">
+
+    <script src="js/deck/modernizr.custom.js"></script>
+</head>
+
+<body class="">
+
+<article class="deck-container">
+    <section class="slide">
+        <div>
+            <hgroup>
+                <h1>Backbone.js</h1>
+                <!--<h2>The dynamic stylesheet language.</h2>-->
+            </hgroup>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>What is it?</h2>
+        <blockquote>
+            Backbone.js gives structure to web applications by providing models with key-value binding and custom
+            events, collections with a rich API of enumerable functions, views with declarative event handling, and
+            connects it all to your existing API over a RESTful JSON interface.
+        </blockquote>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Components</h2>
+        <ol>
+            <li class="slide">
+                <h3>Models</h3>
+
+                <p>Contains the interactive data as well as a large part of the logic surrounding it: conversions,
+                    validations, computed properties, and access control.</p>
+            </li>
+            <li class="slide">
+                <h3>Collections</h3>
+
+                <p>Ordered sets of models.</p>
+            </li>
+            <li class="slide">
+                <h3>Views</h3>
+
+                <p>Responsible for drawing the model on the page.</p>
+            </li>
+            <li class="slide">
+                <h3>Routers</h3>
+
+                <p>Provides methods for routing client-side pages, and connecting them to actions and events.</p>
+            </li>
+        </ol>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Events Mixin</h2>
+
+        <h3>Models, Collections, Views, and Routers all have the Events module mixed in.</h3>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var object = {};
+
+_.extend(object, Backbone.Events);
+
+object.on("alert", function(msg) {
+  console.log("Triggered " + msg);
+});
+
+object.trigger("alert", "an event");
+        </textarea>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Layers</h2>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Models</h2>
+        <h3>Creating a Model instance</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({
+    defaults: {
+        name: 'Untitled'
+    }
+});
+
+var task = new TaskModel();
+console.log(task.get('name'));
+
+task.set('name', 'Do Laundry');
+console.log(task.get('name'));
+        </textarea>
+        </div>
+        <h3>Validation</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var Chapter = Backbone.Model.extend({
+  validate: function(attrs) {
+    if (attrs.end < attrs.start) {
+      return "can't end before it starts";
+    }
+  }
+});
+
+var one = new Chapter({
+  title : "Chapter One: The Beginning"
+});
+
+one.on("error", function(model, error) {
+  console.log(error);
+});
+
+one.set({
+  start: 15,
+  end:   10
+});
+        </textarea>
+        </div>
+        <h3>Instance and Static methods</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({
+    instanceMethod: function() {
+        console.log('instance method called');
+    }
+}, {
+    staticMethod: function() {
+        console.log('static method called');
+    }
+});
+
+var task = new TaskModel();
+
+task.instanceMethod();
+TaskModel.staticMethod();
+        </textarea>
+        </div>
+        <h3>Binding events</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+
+var task = new TaskModel();
+
+task.on('change', function(model, options) {
+    console.log('one of the attributes was changed');
+});
+task.on('change:name', function(model, value, options) {
+    console.log('the name attribute was changed to ' + value);
+});
+
+task.set('name', 'Wash the car');
+task.set('description', 'something else');
+        </textarea>
+        </div>
+        <h3>JSON</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+
+var task = new TaskModel({
+    name: 'Get groceries',
+    description: 'Go to the store and buy some groceries.',
+    due: new Date()
+});
+
+console.log(task.toJSON());
+        </textarea>
+        </div>
+        <h3>REST</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({
+    urlRoot: '/test'
+});
+
+var task = new TaskModel({
+    name: 'Get groceries',
+    description: 'Go to the store and buy some groceries.',
+    due: new Date()
+});
+
+// mock sync
+Backbone.sync = function(method, model) {
+    console.log('method: ' + method);
+    if (method == 'create') {
+        model.id = 1;
+    }
+};
+
+task.save();
+task.save();
+task.fetch();
+task.destroy();
+        </textarea>
+        </div>
+        </div>
+
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Collections</h2>
+        <h3>Create a Collection instance</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel
+});
+
+var tasks = new TaskCollection([
+    { name: 'task1', description: 'first task' },
+    { name: 'task2', description: 'second task' }
+]);
+
+console.log(tasks.length);
+
+// underscore iteration functions proxied
+tasks.each(function(model) {
+    console.log(model.get('name'));
+});
+        </textarea>
+        </div>
+
+        <h3>Add/remove events</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel
+});
+
+var tasks = new TaskCollection();
+
+tasks.on('add', function(model, collection) {
+    console.log('added ' + model.get('name'));
+});
+tasks.on('remove', function(model, collection) {
+    console.log('removed ' + model.get('name'));
+});
+
+// pass silent option to suppress event
+tasks.add([{name: 'task1'}, {name: 'task2'}]);
+
+var task1 = tasks.at(0);
+var task2 = tasks.at(1);
+tasks.remove(task1);
+task2.destroy();
+        </textarea>
+        </div>
+
+        <h3>Fetch</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel,
+    url: '/tasks'
+});
+
+var tasks = new TaskCollection();
+
+// mock sync
+Backbone.sync = function(method, model) {
+  console.log('method: ' + method);
+  model.reset([{name: 'fetch1'},{name: 'fetch2'},{name: 'fetch3'}]);
+};
+
+tasks.fetch();
+console.log('found ' + tasks.length + ' tasks');
+        </textarea>
+        </div>
+
+        <h3>Fetch with parameters</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel,
+
+    url: function() {
+        return '/tasks?username=' + this._username;
+    },
+
+    fetchByUser: function(username) {
+        this._username = username;
+        return this.fetch();
+    }
+});
+
+var tasks = new TaskCollection();
+
+// mock sync
+Backbone.sync = function(method, model) {
+    console.log(model.url());
+};
+
+tasks.fetchByUser('smith');
+tasks.fetchByUser('johnson');
+        </textarea>
+        </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Views</h2>
+        <h3>Create a View instance</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend();
+
+var TaskView = Backbone.View.extend({
+    template: _.template('<span>Name: <%= name %></span><span>Description: <%= description %></span>'),
+
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el.html(html);
+    }
+});
+
+var model = new TaskModel({name: 'Change oil', description: 'blah blah'});
+
+var view = new TaskView({model: model});
+console.log('html: ' + _.escape(view.$el.html()));
+
+view.render();
+console.log('html: ' + _.escape(view.$el.html()));
+        </textarea>
+        </div>
+
+        <h3>Repainting on change event</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend();
+
+var TaskView = Backbone.View.extend({
+    template: _.template('<span>Name: <%= name %></span><span>Description: <%= description %></span>'),
+
+    initialize: function(options) {
+        this.model.bind('change', this.render, this);
+    },
+
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el.html(html);
+    }
+});
+
+var model = new TaskModel({name: 'Change oil', description: 'blah blah'});
+
+var view = new TaskView({model: model});
+view.render();
+console.log('html: ' + _.escape(view.$el.html()));
+
+model.set('name', 'Set up oil change');
+console.log('html: ' + _.escape(view.$el.html()));
+        </textarea>
+        </div>
+
+        <h3>Handling DOM events</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend();
+
+var TaskView = Backbone.View.extend({
+    template: _.template('<span>Name: <a href="#" class="name"><%= name %></a></span><span>Description: <%= description %></span>'),
+
+    events: {
+        'click .name': '_handleClick' // 'event selector' : 'method'
+    },
+
+    initialize: function(options) {
+        this.model.bind('change', this.render, this);
+    },
+
+    _handleClick: function(event) {
+        event.preventDefault();
+        console.log('name clicked');
+    },
+
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el.html(html);
+    }
+});
+
+var model = new TaskModel({name: 'foo', description: 'bar'});
+
+var view = new TaskView({model: model});
+view.render();
+console.log('html: ' + _.escape(view.$el.html()));
+
+view.$el.find('.name').click(); // simulate click
+        </textarea>
+        </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Routers</h2>
+        <h3>Creating a router instance</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var MyRouter = Backbone.Router.extend({
+    routes: {
+        'help':                 'help',    // #help
+        'search/:query':        'search',  // #search/kiwis
+        'search/:query/p:page': 'search'   // #search/kiwis/p7
+    },
+
+    help: function() {
+        // do help stuff
+    },
+
+    search: function(query, page) {
+        // do search stuff
+    }
+});
+
+var router = new MyRouter();
+router.navigate("help/troubleshooting", {trigger: true});
+        </textarea>
+        </div>
+        </div>
+    </section>
+
+    <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+    <a href="#" class="deck-next-link" title="Next">&#8594;</a>
+</article>
+
+
+<script src="js/deck/jquery-1.7.min.js"></script>
+
+<!-- Deck Core and extensions -->
+<script src="js/deck/core/deck.core.js"></script>
+<script src="js/deck/extensions/codemirror/deck.codemirror.js"></script>
+<script src="js/deck/extensions/hash/deck.hash.js"></script>
+<script src="js/deck/extensions/menu/deck.menu.js"></script>
+<script src="js/deck/extensions/goto/deck.goto.js"></script>
+
+<script src="js/deck/extensions/status/deck.status.js"></script>
+<script src="js/deck/extensions/navigation/deck.navigation.js"></script>
+
+<script src="js/CodeMirror-2.21/lib/codemirror.js"></script>
+<script src="js/CodeMirror-2.21/mode/css/css.js"></script>
+
+<script src="js/underscore.js"></script>
+<script src="js/backbone.js"></script>
+
+<script src="js/main.js"></script>
+</body>
+
+</html>
+>>>>>>> b61523c2b51d5d8d135a33493a7004a0d43a1e41
