@@ -50,7 +50,7 @@
 
 <article class="deck-container">
     <section class="slide">
-        <div class="">
+        <div>
             <hgroup>
                 <h1>Backbone.js</h1>
                 <!--<h2>The dynamic stylesheet language.</h2>-->
@@ -59,46 +59,51 @@
     </section>
 
     <section class="slide">
+        <div>
         <h2>What is it?</h2>
         <blockquote>
             Backbone.js gives structure to web applications by providing models with key-value binding and custom
             events, collections with a rich API of enumerable functions, views with declarative event handling, and
             connects it all to your existing API over a RESTful JSON interface.
         </blockquote>
+        </div>
     </section>
 
     <section class="slide">
+        <div>
         <h2>Components</h2>
         <ol>
-            <li>
+            <li class="slide">
                 <h3>Models</h3>
 
                 <p>Contains the interactive data as well as a large part of the logic surrounding it: conversions,
                     validations, computed properties, and access control.</p>
             </li>
-            <li>
+            <li class="slide">
                 <h3>Collections</h3>
 
                 <p>Ordered sets of models.</p>
             </li>
-            <li>
+            <li class="slide">
                 <h3>Views</h3>
 
                 <p>Responsible for drawing the model on the page.</p>
             </li>
-            <li>
+            <li class="slide">
                 <h3>Routers</h3>
 
                 <p>Provides methods for routing client-side pages, and connecting them to actions and events.</p>
             </li>
         </ol>
+        </div>
     </section>
 
     <section class="slide">
+        <div>
         <h2>Events Mixin</h2>
 
         <h3>Models, Collections, Views, and Routers all have the Events module mixed in.</h3>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var object = {};
 
 _.extend(object, Backbone.Events);
@@ -108,7 +113,8 @@ object.on("alert", function(msg) {
 });
 
 object.trigger("alert", "an event");
-        </pre>
+        </textarea>
+        </div>
     </section>
 
     <section class="slide">
@@ -116,12 +122,11 @@ object.trigger("alert", "an event");
     </section>
 
     <section class="slide">
+        <div>
         <h2>Models</h2>
         <h3>Creating a Model instance</h3>
-        <!--<script type="codemirror/cleanup" data-selector="#code-model-1">-->
-            <!--_.extend(window.parent, _.pick(window, 'task'));-->
-        <!--</script>-->
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({
     defaults: {
         name: 'Untitled'
@@ -133,11 +138,8 @@ console.log(task.get('name'));
 
 task.set('name', 'Do Laundry');
 console.log(task.get('name'));
-        </pre>
-    </section>
-
-    <section class="slide">
-        <h2>Models</h2>
+        </textarea>
+        </div>
         <h3>Validation</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -163,12 +165,9 @@ one.set({
 });
         </textarea>
         </div>
-    </section>
-
-    <section class="slide">
-        <h2>Models</h2>
         <h3>Instance and Static methods</h3>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({
     instanceMethod: function() {
         console.log('instance method called');
@@ -183,13 +182,11 @@ var task = new TaskModel();
 
 task.instanceMethod();
 TaskModel.staticMethod();
-        </pre>
-    </section>
-
-    <section class="slide">
-        <h2>Models</h2>
+        </textarea>
+        </div>
         <h3>Binding events</h3>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 
 var task = new TaskModel();
@@ -203,13 +200,11 @@ task.on('change:name', function(model, value, options) {
 
 task.set('name', 'Wash the car');
 task.set('description', 'something else');
-        </pre>
-    </section>
-
-    <section class="slide">
-        <h2>Models</h2>
+        </textarea>
+        </div>
         <h3>JSON</h3>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 
 var task = new TaskModel({
@@ -219,14 +214,11 @@ var task = new TaskModel({
 });
 
 console.log(task.toJSON());
-        </pre>
-    </section>
-
-    <section class="slide">
-        <h2>Models</h2>
+        </textarea>
+        </div>
         <h3>REST</h3>
         <div>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({
     urlRoot: '/test'
 });
@@ -249,17 +241,18 @@ task.save();
 task.save();
 task.fetch();
 task.destroy();
-        </pre>
+        </textarea>
         </div>
-
+        </div>
 
     </section>
 
     <section class="slide">
+        <div>
         <h2>Collections</h2>
         <h3>Create a Collection instance</h3>
         <div>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 var TaskCollection = Backbone.Collection.extend({
     model: TaskModel
@@ -276,17 +269,12 @@ console.log(tasks.length);
 tasks.each(function(model) {
     console.log(model.get('name'));
 });
-        </pre>
+        </textarea>
         </div>
 
-
-    </section>
-
-    <section class="slide">
-        <h2>Collections</h2>
         <h3>Add/remove events</h3>
         <div>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 var TaskCollection = Backbone.Collection.extend({
     model: TaskModel
@@ -308,15 +296,12 @@ var task1 = tasks.at(0);
 var task2 = tasks.at(1);
 tasks.remove(task1);
 task2.destroy();
-        </pre>
+        </textarea>
         </div>
-    </section>
 
-    <section class="slide">
-        <h2>Collections</h2>
         <h3>Fetch</h3>
         <div>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 var TaskCollection = Backbone.Collection.extend({
     model: TaskModel,
@@ -333,15 +318,12 @@ Backbone.sync = function(method, model) {
 
 tasks.fetch();
 console.log('found ' + tasks.length + ' tasks');
-        </pre>
+        </textarea>
         </div>
-    </section>
 
-    <section class="slide">
-        <h2>Collections</h2>
         <h3>Fetch with parameters</h3>
         <div>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 
 var TaskCollection = Backbone.Collection.extend({
@@ -366,11 +348,13 @@ Backbone.sync = function(method, model) {
 
 tasks.fetchByUser('smith');
 tasks.fetchByUser('johnson');
-        </pre>
+        </textarea>
+        </div>
         </div>
     </section>
 
     <section class="slide">
+        <div>
         <h2>Views</h2>
         <h3>Create a View instance</h3>
         <div>
@@ -395,10 +379,7 @@ view.render();
 console.log('html: ' + _.escape(view.$el.html()));
         </textarea>
         </div>
-    </section>
 
-    <section class="slide">
-        <h2>Views</h2>
         <h3>Repainting on change event</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -427,10 +408,7 @@ model.set('name', 'Set up oil change');
 console.log('html: ' + _.escape(view.$el.html()));
         </textarea>
         </div>
-    </section>
 
-    <section class="slide">
-        <h2>Views</h2>
         <h3>Handling DOM events</h3>
         <div>
         <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
@@ -466,6 +444,36 @@ console.log('html: ' + _.escape(view.$el.html()));
 
 view.$el.find('.name').click(); // simulate click
         </textarea>
+        </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div>
+        <h2>Routers</h2>
+        <h3>Creating a router instance</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var MyRouter = Backbone.Router.extend({
+    routes: {
+        'help':                 'help',    // #help
+        'search/:query':        'search',  // #search/kiwis
+        'search/:query/p:page': 'search'   // #search/kiwis/p7
+    },
+
+    help: function() {
+        // do help stuff
+    },
+
+    search: function(query, page) {
+        // do search stuff
+    }
+});
+
+var router = new MyRouter();
+router.navigate("help/troubleshooting", {trigger: true});
+        </textarea>
+        </div>
         </div>
     </section>
 
