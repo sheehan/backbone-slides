@@ -1,14 +1,22 @@
 body {
     background: url("../images/scribble_light.png") repeat scroll 0 0 transparent;
+    margin: 0;
+    padding: 0;
 }
 .deck-container {
-  width: auto;
-  max-width: 864px;
-  margin: 16px auto 24px auto;
-  min-height: 560px;
-  font-size: 16px;
-  background: none;
-  overflow-y: auto;
+    background: none repeat scroll 0 0 transparent;
+    font-size: 16px;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 864px;
+    min-height: 560px;
+    overflow-y: auto;
+    width: auto;
+}
+
+.deck-container .slide h3 {
+    color: #444444;
+    font-size: 20px;
 }
 
 .vcenter {

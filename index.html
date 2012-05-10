@@ -97,7 +97,7 @@
     <section class="slide">
         <h2>Events Mixin</h2>
 
-        <p>Models, Collections, Views, and Routers all have the Events module mixed in.</p>
+        <h3>Models, Collections, Views, and Routers all have the Events module mixed in.</h3>
         <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var object = {};
 
@@ -117,7 +117,7 @@ object.trigger("alert", "an event");
 
     <section class="slide">
         <h2>Models</h2>
-        <p>Creating a Model instance</p>
+        <h3>Creating a Model instance</h3>
         <!--<script type="codemirror/cleanup" data-selector="#code-model-1">-->
             <!--_.extend(window.parent, _.pick(window, 'task'));-->
         <!--</script>-->
@@ -138,7 +138,36 @@ console.log(task.get('name'));
 
     <section class="slide">
         <h2>Models</h2>
-        <p>Instance and Static methods</p>
+        <h3>Validation</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var Chapter = Backbone.Model.extend({
+  validate: function(attrs) {
+    if (attrs.end < attrs.start) {
+      return "can't end before it starts";
+    }
+  }
+});
+
+var one = new Chapter({
+  title : "Chapter One: The Beginning"
+});
+
+one.on("error", function(model, error) {
+  console.log(error);
+});
+
+one.set({
+  start: 15,
+  end:   10
+});
+        </textarea>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Models</h2>
+        <h3>Instance and Static methods</h3>
         <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({
     instanceMethod: function() {
@@ -159,7 +188,7 @@ TaskModel.staticMethod();
 
     <section class="slide">
         <h2>Models</h2>
-        <p>Binding events</p>
+        <h3>Binding events</h3>
         <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 
@@ -179,7 +208,7 @@ task.set('description', 'something else');
 
     <section class="slide">
         <h2>Models</h2>
-        <p>JSON</p>
+        <h3>JSON</h3>
         <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var TaskModel = Backbone.Model.extend({});
 
@@ -195,7 +224,8 @@ console.log(task.toJSON());
 
     <section class="slide">
         <h2>Models</h2>
-        <p>REST</p>
+        <h3>REST</h3>
+        <div>
         <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
 var TaskModel = Backbone.Model.extend({
     urlRoot: '/test'
@@ -219,33 +249,68 @@ task.save();
 task.fetch();
 task.destroy();
         </pre>
+        </div>
+
+
     </section>
 
     <section class="slide">
-        <h2>Models</h2>
-        <p>Validate</p>
-        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
-var Chapter = Backbone.Model.extend({
-  validate: function(attrs) {
-    if (attrs.end < attrs.start) {
-      return "can't end before it starts";
-    }
-  }
+        <h2>Collections</h2>
+        <h3>Create a Collection instance</h3>
+        <div>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel
 });
 
-var one = new Chapter({
-  title : "Chapter One: The Beginning"
+var tasks = new TaskCollection([
+    { name: 'task1', description: 'first task' },
+    { name: 'task2', description: 'second task' }
+]);
+
+console.log(tasks.length);
+
+// underscore iteration functions proxied
+tasks.each(function(model) {
+    console.log(model.get('name'));
+});
+        </pre>
+        </div>
+
+
+    </section>
+
+    <section class="slide">
+        <h2>Collections</h2>
+        <h3>Add/remove events</h3>
+        <div>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel
 });
 
-one.on("error", function(model, error) {
-  console.log(error);
+var tasks = new TaskCollection();
+
+tasks.on('add', function(model, collection) {
+    console.log('added ' + model.get('name'));
+});
+tasks.on('remove', function(model, collection) {
+    console.log('removed ' + model.get('name'));
 });
 
-one.set({
-  start: 15,
-  end:   10
-});
-        </textarea>
+// pass silent option to suppress event
+tasks.add([{name: 'task1'}, {name: 'task2'}]);
+
+var task1 = tasks.at(0);
+var task2 = tasks.at(1);
+tasks.remove(task1);
+task2.destroy();
+        </pre>
+        </div>
+
+
     </section>
 
     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
