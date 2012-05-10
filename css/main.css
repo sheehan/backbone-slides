@@ -1,3 +1,6 @@
+body {
+    background: url("../images/scribble_light.png") repeat scroll 0 0 transparent;
+}
 .deck-container {
   width: auto;
   max-width: 864px;
@@ -16,9 +19,13 @@
     top: 50%;
 }
 
+.CodeMirror, .deck-codemirror-result {
+    background-color: #fff;
+}
+
 .csstransforms.boxshadow .deck-container .slide .CodeMirror pre:after {
     -moz-transform: none;
-    right: auto;
+    right: inherit;
 }
 
 .csstransforms.boxshadow .deck-container .slide .CodeMirror pre:before,
@@ -28,7 +35,7 @@
     content: "";
     height: auto;
     max-width: auto;
-    position: inherit
+    position: inherit;
     width: auto;
     z-index: 0;
 }

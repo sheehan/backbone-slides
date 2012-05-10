@@ -57,6 +57,7 @@
             </hgroup>
         </div>
     </section>
+
     <section class="slide">
         <h2>What is it?</h2>
         <blockquote>
@@ -65,6 +66,7 @@
             connects it all to your existing API over a RESTful JSON interface.
         </blockquote>
     </section>
+
     <section class="slide">
         <h2>Components</h2>
         <ol>
@@ -91,11 +93,12 @@
             </li>
         </ol>
     </section>
+
     <section class="slide">
         <h2>Events Mixin</h2>
 
         <p>Models, Collections, Views, and Routers all have the Events module mixed in.</p>
-        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$, _, Backbone">
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
 var object = {};
 
 _.extend(object, Backbone.Events);
@@ -107,14 +110,87 @@ object.on("alert", function(msg) {
 object.trigger("alert", "an event");
         </pre>
     </section>
+
     <section class="slide">
-      <pre class="code" mode="javascript" style="display: none;" runnable="true">
-// codemirror demo party!
-var greeter = function(name) {
-  return "Why hello there " + name;
-}
-console.log(greeter("Joe"));
-      </pre>
+        <h2>Layers</h2>
+    </section>
+
+    <section class="slide">
+        <h2>Models</h2>
+        <p>Creating a Model instance</p>
+        <!--<script type="codemirror/cleanup" data-selector="#code-model-1">-->
+            <!--_.extend(window.parent, _.pick(window, 'task'));-->
+        <!--</script>-->
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({
+    defaults: {
+        name: 'Untitled'
+    }
+});
+
+var task = new TaskModel();
+console.log(task.get('name'));
+
+task.set('name', 'Do Laundry');
+console.log(task.get('name'));
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Models</h2>
+        <p>Instance and Static methods</p>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({
+    instanceMethod: function() {
+        console.log('instance method called');
+    }
+}, {
+    staticMethod: function() {
+        console.log('static method called');
+    }
+});
+
+var task = new TaskModel();
+
+task.instanceMethod();
+TaskModel.staticMethod();
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Models</h2>
+        <p>Binding events</p>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+
+var task = new TaskModel();
+
+task.on('change', function(model, options) {
+    console.log('one of the attributes was changed');
+});
+task.on('change:name', function(model, value, options) {
+    console.log('the name attribute was changed to ' + value);
+});
+
+task.set('name', 'Wash the car');
+task.set('description', 'something else');
+        </pre>
+    </section>
+
+    <section class="slide">
+        <h2>Models</h2>
+        <p>JSON</p>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+
+var task = new TaskModel({
+    name: 'Get groceries',
+    description: 'Go to the store and buy some groceries.',
+    due: new Date()
+});
+
+console.log(task.toJSON());
+        </pre>
     </section>
 
     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
