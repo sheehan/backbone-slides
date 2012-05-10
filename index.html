@@ -350,13 +350,82 @@ var TaskCollection = Backbone.Collection.extend({
     url: function() {
         return '/tasks?username=' + this._username;
     },
-            
+
     fetchByUser: function(username) {
         this._username = username;
         return this.fetch();
     }
 });
+
+var tasks = new TaskCollection();
+
+// mock sync
+Backbone.sync = function(method, model) {
+    console.log(model.url());
+};
+
+tasks.fetchByUser('smith');
+tasks.fetchByUser('johnson');
         </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Views</h2>
+        <h3>Create a View instance</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend();
+
+var TaskView = Backbone.View.extend({
+    template: _.template('<span>Name: <%= name %></span><span>Description: <%= description %></span>'),
+
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el.html(html);
+    }
+});
+
+var model = new TaskModel({name: 'Change oil', description: 'blah blah'});
+
+var view = new TaskView({model: model});
+console.log('html: ' + _.escape(view.$el.html()));
+
+view.render();
+console.log('html: ' + _.escape(view.$el.html()));
+        </textarea>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Views</h2>
+        <h3>Repainting on change event</h3>
+        <div>
+        <textarea class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend();
+
+var TaskView = Backbone.View.extend({
+    template: _.template('<span>Name: <%= name %></span><span>Description: <%= description %></span>'),
+
+    initialize: function(options) {
+        this.model.bind('change', this.render, this);
+    },
+
+    render: function() {
+        var html = this.template(this.model.toJSON());
+        this.$el.html(html);
+    }
+});
+
+var model = new TaskModel({name: 'Change oil', description: 'blah blah'});
+
+var view = new TaskView({model: model});
+view.render();
+console.log('html: ' + _.escape(view.$el.html()));
+
+model.set('name', 'Set up oil change');
+console.log('html: ' + _.escape(view.$el.html()));
+        </textarea>
         </div>
     </section>
 
