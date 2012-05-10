@@ -69,4 +69,15 @@ section.slide > div {
     padding: 0 20px;
 }
 
+.deck-container > .slide .deck-before.vertical-code,
+.deck-container > .slide .deck-previous.vertical-code {
+    opacity: 1;
+}
+
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-before .slide.vertical-code,
+.csstransitions.csstransforms .deck-container:not(.deck-menu) > .deck-previous .slide.vertical-code {
+    /*opacity: 1;*/
+    /*visibility: visible;*/
+}
+
 /*url("http://backboneconf.com/img/backbone.png") no-repeat scroll center center transparent*/
