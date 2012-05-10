@@ -193,6 +193,34 @@ console.log(task.toJSON());
         </pre>
     </section>
 
+    <section class="slide">
+        <h2>Models</h2>
+        <p>REST</p>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({
+    urlRoot: '/test'
+});
+
+var task = new TaskModel({
+    name: 'Get groceries',
+    description: 'Go to the store and buy some groceries.',
+    due: new Date()
+});
+            
+Backbone.sync = function(method, model) {
+    console.log('method: ' + method);
+    if (method == 'create') {
+        model.id = 1;
+    }
+};
+
+task.save();
+task.save();
+task.fetch();
+task.destroy();
+        </pre>
+    </section>
+
     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
     <a href="#" class="deck-next-link" title="Next">&#8594;</a>
 </article>
