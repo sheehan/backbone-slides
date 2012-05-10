@@ -237,6 +237,7 @@ var task = new TaskModel({
     due: new Date()
 });
 
+// mock sync
 Backbone.sync = function(method, model) {
     console.log('method: ' + method);
     if (method == 'create') {
@@ -309,8 +310,54 @@ tasks.remove(task1);
 task2.destroy();
         </pre>
         </div>
+    </section>
 
+    <section class="slide">
+        <h2>Collections</h2>
+        <h3>Fetch</h3>
+        <div>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel,
+    url: '/tasks'
+});
 
+var tasks = new TaskCollection();
+
+// mock sync
+Backbone.sync = function(method, model) {
+  console.log('method: ' + method);
+  model.reset([{name: 'fetch1'},{name: 'fetch2'},{name: 'fetch3'}]);
+};
+
+tasks.fetch();
+console.log('found ' + tasks.length + ' tasks');
+        </pre>
+        </div>
+    </section>
+
+    <section class="slide">
+        <h2>Collections</h2>
+        <h3>Fetch with parameters</h3>
+        <div>
+        <pre class="code" mode="javascript" style="display: none;" runnable="true" globals="jQuery,$,_,Backbone">
+var TaskModel = Backbone.Model.extend({});
+
+var TaskCollection = Backbone.Collection.extend({
+    model: TaskModel,
+
+    url: function() {
+        return '/tasks?username=' + this._username;
+    },
+            
+    fetchByUser: function(username) {
+        this._username = username;
+        return this.fetch();
+    }
+});
+        </pre>
+        </div>
     </section>
 
     <a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
